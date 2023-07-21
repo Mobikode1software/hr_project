@@ -1,0 +1,213 @@
+{% extends "base.html" %} {% block content %}
+
+{% comment %} <div class="toast align-items-center bg-success {{my_class}}" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">X</button>
+  </div>
+</div> {% endcomment %}
+
+<div class="col-md-12 mb-4">
+  <div class="card">
+    <div
+      class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+    >
+      <h6 class="m-0 font-weight-bold text-white">
+        Update Candidate Record
+      </h6>
+      <div class="dropdown no-arrow">
+        {% comment %} <span class="text text-success text-xs"
+          >Fields indicated by <span class="text-danger">*</span> are
+          mandatory</span
+        > {% endcomment %}
+      </div>
+    </div>
+
+    <div class="card-body">
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %} {% comment %} {{form.as_p}} {% endcomment %}
+
+        <div class="row">
+          <div class="col-12" style="text-align: right">
+           
+            <button type="submit" class="btn btn-primary btn-icon-split btn-sm">
+              <span class="icon">
+                <i class="fas fa-arrow-right"></i>
+              </span>
+              <span class="text">Update</span>
+            </button>
+
+          </div>
+        </div>
+
+
+        <div class="row mb-4">
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Name<span class="text-danger">*</span>
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.Name }}
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Skills
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.Skill }}
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Experience
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.Experience }}
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Relevant_Experience
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.Relevant_Experience }}
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Company
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.Company }}
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Availability
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.Availability }}
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Offer
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.Offer }}
+            </div>
+          </div>
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              CTC
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.CTC }}
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              ECTC
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.ECTC }}
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Location
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.Location }}
+            </div>
+          </div>
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Contact<span class="text-danger">*</span>
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.Contact }}
+            </div>
+          </div>
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Mail_id<span class="text-danger">*</span>
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.Mail_id }}
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Reason_for_job_change
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.Reason_for_job_change }}
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Resume
+            </div>
+            <div class="mb-0 font-weight-bold text-gray-800 text-xs">
+              {{ form.Resume }}
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              PassPort
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ form.PassPort }}
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row mb-4">
+
+          <div class="col-xl-4 col-sm-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Status 
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800" disabled="true">
+              {{ form.status }}
+            </div>
+            <div>
+              <span class="text text-warning text-xs"> This field will be updated by Super user only</span>
+            </div>
+          </div>
+        </div>
+
+
+       
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

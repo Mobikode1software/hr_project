@@ -1,0 +1,435 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="col-12 p-0">
+  <div class="row">
+    <div class="col-7 ">
+      <div class="card text-white shadow mb-1  border-left-primary shadow">
+        <div class="card-header bg-light">
+          <div class="">
+            <div class="">
+              <span class="text-success btn-sm text-xs"><i class="fas fa-thumbs-up"></i> : Approved</span>
+              <span class="text-secondary btn-sm text-xs"> <i class="fas fa-thumbs-down" tooltip="e2"></i> : Rejected</span>
+              <span class="text-info btn-sm text-xs"><i class="fas fa-user-check"></i> : Shortlisted</span>
+              <span class="text-danger btn-sm text-xs"><i class="fas fa-user-times"></i> : Screen/Client Reject</span>
+              <span class="text-warning btn-sm text-xs"><i class="fas fa-exclamation-triangle"></i> : Pending</span>
+              <span class="text-info btn-sm text-xs"><i class="fas fa-user-clock"></i> : On Hold</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      {% for message in messages %}
+      <div class="col-12 p-0">
+        <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="True">&times;</span>
+          </button>
+          {{ message }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="col-12 p-0 mt-1">
+  <div class="card">
+    <a
+      href="#collapseCardExample"
+      class="d-block card-header py-3"
+      data-toggle="collapse"
+      role="button"
+      aria-expanded="true"
+      aria-controls="collapseCardExample"
+    >
+      <h6 class="m-0 font-weight-bold text-white">
+        Team Summary [Normal Users]
+      </h6>
+    </a>
+
+    <div class="collapse show" id="collapseCardExample">
+      <div class="card-body">
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Select HR to view respective record:<span class="text-danger"
+                >*</span
+              >
+            </div>
+
+            <form method="POST" action="{% url 'myTeam_view' %}">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-4">
+                  <select name="my_select" id="my_select" onchange="selectHrListChange(this.id)">
+                    <option value="None">Select HR(Normal User)</option>
+                    {% for user in hrUserList %}
+                    <option value="{{user.value}}">{{user.key}}</option>
+                    {% endfor %}
+                  </select>
+                  <input type="hidden" id="selectedValue" name="selectedValue" value="{{ selectedOption }}">
+                </div>
+
+
+                <div class="col-4">
+                  <button
+                   {% comment %} {% if is_button_disabled %}disabled{% endif %} {% endcomment %}
+                    type="submit"
+                    id="btn_view_hr_record"
+                    class="btn btn-primary btn-icon-split btn-sm"
+                  >
+                    <span class="icon">
+                      <i class="fas fa-table"></i>
+                    </span>
+                    <span class="text">View Record</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table
+                id="bootstrapdatatable1"
+                class="table table-bordered table-employee"
+                width="100%"
+              >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>SKILLS</th>
+                    <th>EXPERIENCE</th>
+                    <th>RELEVANT_EXPERIENCE</th>
+                    <th>COMPANY</th>
+      
+                    <th>AVAILABILITY</th>
+                    <th>OFFER</th>
+      
+      
+                    <th>CTC</th>
+                    <th>ECTC</th>
+                    <th>LOCATION</th>
+                    <th>CONTACT</th>
+                    <th>MAIL_ID</th>
+                    <th>REASON_FOR_JOB_CHANGE</th>
+                    <th>RESUME</th>
+      
+                    <th>PASSPORT</th>
+                    <th>STATUS</th>
+                    
+                    <th>DELETE</th>
+                    <th>EDIT</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {% for employ in employs %}
+                  <tr>
+                      <td>
+                        <div>{{forloop.counter}}
+                          <span id="span_id"> 
+                            <i></i>
+                          </span>
+                        </div>
+                      </td>
+                      <td>{{employ.Name}}</td>
+                      <td>{{employ.Skill}}</td>
+                      <td>{{employ.Experience}}</td>
+                      <td>{{employ.Relevant_Experience}}</td>
+                      <td>{{employ.Company}}</td>
+                      <td>{{employ.Availability}}</td>
+                      <td>{{employ.Offer}}</td>
+                      <td>{{employ.CTC}}</td>
+                      <td>{{employ.ECTC}}</td>
+                      <td>{{employ.Location}}</td>
+                      <td>{{employ.Contact}}</td>
+                      <td>{{employ.Mail_id}}</td>
+                      <td>{{employ.Reason_for_job_change}}</td>
+                      <td>{% if employ.Resume %}
+                        <a href="{{employ.Resume.url}}" download>{{employ.Resume}}</a>
+                        {% else %}
+                        File not available
+                        {% endif %}
+                      </td>
+                      <td>{{employ.PassPort}}</td>
+                      <td>{{employ.status}}</td>
+            
+                    <td>
+                      {% comment %}
+                      <a
+                        href="delete-emp/{{employ.id}}"
+                        class="btn btn-danger btn-circle btn-sm"
+                        ><i class="fas fa-trash"></i
+                      ></a>
+                      {% endcomment %}
+                      <form method="POST">
+                        {% csrf_token %}
+                        <a
+                          href="{% url 'delete_view' employ.id %}"
+                          class="btn btn-danger btn-circle btn-sm"
+                          ><i class="fas fa-trash"></i
+                        ></a>
+                      </form>
+                    </td>
+                    <td>
+                    {% comment %} {% with id='employ.id' pageType='1' %}  {% endcomment %}
+                    <a
+                        href="{% url 'myTeamView' %}?id={{employ.id}}&pageType=1"
+                        class="btn btn-primary btn-circle btn-sm"
+                        ><i class="fas fa-pen"></i
+                      ></a> 
+
+
+                  {% comment %} {% endwith %}  {% endcomment %}
+                    </td>
+                  </tr>
+                  {%endfor%}
+                </tbody>
+
+                <tfoot>
+                  <tr>
+                    {% comment %} <th></th> {% endcomment %}
+                    <th>ID</th>
+                    <th>Names</th>
+                    <th>SKILLS</th>
+                    <th>EXPERIENCE</th>
+                    <th>RELEVANT_EXPERIENCE</th>
+                    <th>COMPANY</th>
+                    {% comment %} <th>Status</th> {% endcomment %}
+                    <th>AVAILABILITY</th>
+                    <th>OFFER</th>
+                    <th>CTC</th>
+                    <th>ECTC</th>
+                    <th>LOCATION</th>
+                    <th>CONTACT</th>
+                    <th>MAIL_ID</th>
+                    <th>REASON_FOR_JOB_CHANGE</th>
+                    <th>RESUME</th>
+                    <th>PASSPORT</th>
+                    <th>STATUS</th>
+                    
+                </tr>
+                  
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %} Super Users data as below {% endcomment %}
+<div class="col-12 p-0 mt-4 mb-4">
+  <div class="card">
+    <a
+      href="#collapseCardSuperUSer"
+      class="d-block card-header py-3"
+      data-toggle="collapse"
+      role="button"
+      aria-expanded="true"
+      aria-controls="collapseCardExample"
+    >
+      <h6 class="m-0 font-weight-bold text-white">
+        Team Summary [SUPER Users]
+      </h6>
+    </a>
+
+    <div class="collapse show" id="collapseCardSuperUSer">
+      <div class="card-body">
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="text-xs font-weight-bold text-uppercase mb-1">
+              Select HR to view respective record:<span class="text-danger"
+                >*</span
+              >
+            </div>
+
+            <form method="POST" action="{% url 'myTeam_view' %}">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-4">
+                  <select name="my_select_superuser"  id="my_select_superuser" onchange="selectHrListChange(this.id)">
+                    <option value="None">Select HR(Super User)</option>
+                    {% for user in superUserList %}
+                    <option value="{{user.value}}">{{user.key}}</option>
+                    {% endfor %}
+                  </select>
+                  <input type="hidden" id="selectedValueSuperuser" name="selectedValueSuperuser" value="{{ selectedOptionSuperuser }}">
+                </div>
+
+                <div class="col-4">
+                  <button
+                   id="btn_view_superuser_record"
+                    type="submit"
+                    class="btn btn-primary btn-icon-split btn-sm"
+                  >
+                    <span class="icon">
+                      <i class="fas fa-table"></i>
+                    </span>
+                    <span class="text">View Record</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table
+                id="superuserdatatable"
+                class="table table-bordered table-employee table-responsive"
+                width="100%"
+              >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>SKILLS</th>
+                    <th>EXPERIENCE</th>
+                    <th>RELEVANT_EXPERIENCE</th>
+                    <th>COMPANY</th>
+                    <th>AVAILABILITY</th>
+                    <th>OFFER</th>
+                    <th>CTC</th>
+                    <th>ECTC</th>
+                    <th>LOCATION</th>
+                    <th>CONTACT</th>
+                    <th>MAIL_ID</th>
+                    <th>REASON_FOR_JOB_CHANGE</th>
+                    <th>RESUME</th>
+                    <th>PASSPORT</th>
+                    <th>STATUS</th>      
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {% for employ in superUserData  %}
+                  <tr>
+                      <td>
+                        <div>{{forloop.counter}}<span id="span_id1"><i></i></span></div>
+                      </td>
+                      <td>{{employ.Name}}</td>
+                      <td>{{employ.Skill}}</td>
+                      <td>{{employ.Experience}}</td>
+                      <td>{{employ.Relevant_Experience}}</td>
+                      <td>{{employ.Company}}</td>
+                      <td>{{employ.Availability}}</td>
+                      <td>{{employ.Offer}}</td>
+                      <td>{{employ.CTC}}</td>
+                      <td>{{employ.ECTC}}</td>
+                      <td>{{employ.Location}}</td>
+                      <td>{{employ.Contact}}</td>
+                      <td>{{employ.Mail_id}}</td>
+                      <td>{{employ.Reason_for_job_change}}</td>
+                      <td>{% if employ.Resume %}
+                        <a href="{{employ.Resume.url}}" download>{{employ.Resume}}</a>
+                        {% else %}
+                        File not available
+                        {% endif %}
+                      </td>
+                      <td>{{employ.PassPort}}</td>
+                      <td>{{employ.status}}</td>
+                  </tr>
+                  {%endfor%}
+                </tbody>
+
+                <tfoot>
+                  <tr>
+                    {% comment %} <th></th> {% endcomment %}
+                    <th>ID</th>
+                    <th>Names</th>
+                    <th>SKILLS</th>
+                    <th>EXPERIENCE</th>
+                    <th>RELEVANT_EXPERIENCE</th>
+                    <th>COMPANY</th>
+                    {% comment %} <th>Status</th> {% endcomment %}
+                    <th>AVAILABILITY</th>
+                    <th>OFFER</th>
+                    <th>CTC</th>
+                    <th>ECTC</th>
+                    <th>LOCATION</th>
+                    <th>CONTACT</th>
+                    <th>MAIL_ID</th>
+                    <th>REASON_FOR_JOB_CHANGE</th>
+                    <th>RESUME</th>
+                    <th>PASSPORT</th>
+                    <th>STATUS</th>
+                    
+                </tr>
+                  
+                </tfoot>
+
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+      // Retrieve the selected value from the hidden input field
+      var selectedOption = $('#selectedValue').val();
+      var selectedOptionSuperuser = $('#selectedValueSuperuser').val();
+      // Set the selected value in the select box
+      if (selectedOption) {
+          $('#my_select').val(selectedOption);
+          $('#my_select_superuser').val(selectedOptionSuperuser);
+      }
+  });
+</script>
+
+
+<script type="text/javascript">
+  document.getElementById("btn_view_hr_record").disabled = true;
+  document.getElementById("btn_view_superuser_record").disabled = true;
+
+  function selectHrListChange(selectBoxId){
+    var hrOptionSelected = document.getElementById(selectBoxId).value;
+
+    // Store the current scroll position
+    sessionStorage.setItem('scrollPosition', window.pageYOffset);
+
+    if(hrOptionSelected == 'None' || hrOptionSelected== 'Novalue')
+    {
+      if(hrOptionSelected == 'None' && selectBoxId== 'my_select')
+          document.getElementById("btn_view_hr_record").disabled = true;
+      else if(hrOptionSelected== 'Novalue'  && selectBoxId== 'my_select_superuser')
+          document.getElementById("btn_view_superuser_record").disabled = true;
+     
+    }else if(hrOptionSelected != 'None' || hrOptionSelected != 'Novalue'){
+        if(hrOptionSelected != 'None'  && selectBoxId== 'my_select')
+           document.getElementById("btn_view_hr_record").disabled = false;
+        else if(hrOptionSelected != 'Novalue'  && selectBoxId== 'my_select_superuser')
+            document.getElementById("btn_view_superuser_record").disabled = false; 
+    }
+  }
+
+
+  window.onload = function() {
+    // Retrieve the stored scroll position, if available
+    var storedScrollPosition = sessionStorage.getItem('scrollPosition');
+    if (storedScrollPosition) {
+        window.scrollTo(0, storedScrollPosition);
+        sessionStorage.removeItem('scrollPosition');
+    }
+};
+</script>
+
+
+
+{% endblock %}

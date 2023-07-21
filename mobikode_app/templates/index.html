@@ -1,0 +1,166 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="col-12">
+ 
+  <div class="card text-white shadow mb-1 border-left-primary">
+    <div class="card-header bg-light">
+      <div class="row">
+        <div class="col-12">
+          <span class="text-success btn-sm text-xs"><i class="fas fa-thumbs-up"></i> : Approved</span>
+          <span class="text-secondary btn-sm text-xs"> <i class="fas fa-thumbs-down" tooltip="e2"></i> : Rejected</span>
+          <span class="text-info btn-sm text-xs"><i class="fas fa-user-check"></i> : Shortlisted</span>
+          <span class="text-danger btn-sm text-xs"><i class="fas fa-user-times"></i> : Screen/Client Reject</span>
+          <span class="text-warning btn-sm text-xs"><i class="fas fa-exclamation-triangle"></i> : Pending</span>
+          <span class="text-info btn-sm text-xs"><i class="fas fa-user-clock"></i> : On Hold</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card shadow mb-4">
+
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+      <h6 class="m-0 font-weight-bold text-white">Candidate Data</h6>
+      <div class="dropdown no-arrow">
+          <a href="/addnew" class="btn btn-primary btn-icon-split btn-sm">
+            <span class="icon">
+              <i class="fas fa-user-plus"></i>
+            </span>
+            <span class="text">Add New Candidate </span>
+          </a>
+     
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="row float-right">
+        <div class="col-12 mb-1">
+          <a href="{% url 'download_data' %}" class="btn btn-primary btn-icon-split btn-sm" style="color: black;">
+              <span class="icon">
+                <i class="fas fa-download"></i>
+              </span>
+              <span class="text">Download in Excel </span>
+            </a>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table id="bootstrapdatatable1" class="table table-bordered table-employee" width="100%">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>NAME</th>
+              <th>SKILLS</th>
+              <th>EXPERIENCE</th>
+              <th>RELEVANT_EXPERIENCE</th>
+              <th>COMPANY</th>
+
+              <th>AVAILABILITY</th>
+              <th>OFFER</th>
+
+              <th>CTC</th>
+              <th>ECTC</th>
+              <th>LOCATION</th>
+              <th>CONTACT</th>
+              <th>MAIL_ID</th>
+              <th>REASON_FOR_JOB_CHANGE</th>
+              <th>RESUME</th>
+
+              <th>PASSPORT</th>
+              <th>STATUS</th>
+
+              <th>EDIT</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for employ in employs %}
+            <tr>
+              <td>
+                <div>{{forloop.counter}}
+                  <span id="span_id"> 
+                    <i></i>
+                  </span>
+                </div>
+              </td>
+              <td>{{employ.Name}}</td>
+              <td>{{employ.Skill}}</td>
+              <td>{{employ.Experience}}</td>
+              <td>{{employ.Relevant_Experience}}</td>
+              <td>{{employ.Company}}</td>
+
+              <td>{{employ.Availability}}</td>
+              <td>{{employ.Offer}}</td>
+              <td>{{employ.CTC}}</td>
+
+              <td>{{employ.ECTC}}</td>
+              <td>{{employ.Location}}</td>
+              <td>{{employ.Contact}}</td>
+              <td>{{employ.Mail_id}}</td>
+              <td>{{employ.Reason_for_job_change}}</td>
+              <td>{% if employ.Resume %}
+                <a href="{{employ.Resume.url}}" download>{{employ.Resume}}</a>
+                {% else %}
+                File not available
+                {% endif %}
+              </td>
+
+              <td>{{employ.PassPort}}</td>
+              <td id="badgeId">{{employ.status}}</td>
+              {% comment %}
+              <td>
+                <a href="delete-emp/{{employ.id}}" class="btn btn-danger btn-circle btn-sm"><i
+                    class="fas fa-trash"></i></a <form method="POST">
+                {% csrf_token %}
+                <a href="{% url 'delete_view' employ.id %}" class="btn btn-danger btn-circle btn-sm"><i
+                    class="fas fa-trash"></i></a>
+                </form>
+              </td>
+              {% endcomment %}
+              <td>
+                {% comment %} <a href="{% url 'update_data' employ.id %}" class="btn btn-primary btn-circle btn-sm"><i
+                    class="fas fa-pen"></i></a> {% endcomment %}
+                <a href="{% url 'myTeamView' %}?id={{employ.id}}&pageType=0"
+                  class="btn btn-primary btn-circle btn-sm"><i class="fas fa-pen"></i></a>
+              </td>
+            </tr>
+            {%endfor%}
+          </tbody>
+
+          <tfoot>
+            <tr>
+              {% comment %} <th></th> {% endcomment %}
+              <th>ID</th>
+              <th>Names</th>
+              <th>SKILLS</th>
+              <th>EXPERIENCE</th>
+              <th>RELEVANT_EXPERIENCE</th>
+              <th>COMPANY</th>
+              {% comment %} <th>Status</th> {% endcomment %}
+              <th>AVAILABILITY</th>
+              <th>OFFER</th>
+              <th>CTC</th>
+              <th>ECTC</th>
+              <th>LOCATION</th>
+              <th>CONTACT</th>
+              <th>MAIL_ID</th>
+              <th>REASON_FOR_JOB_CHANGE</th>
+              <th>PASSPORT</th>
+
+              <th></th>
+
+              <th>STATUS</th>
+
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    {% endblock %}
+  </div>
+
+</div>
+
+<script>
+
+</script>

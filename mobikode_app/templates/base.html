@@ -1,0 +1,728 @@
+{% load static %} {% load custom_filters %}
+
+<html lang="en">
+  <head>
+    <base href="{% static '/' %}" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Mobikode HR Portal</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="icon"
+      href="https://mobikode.com/wp-content/uploads/2021/11/favicon.svg"
+      sizes="32x32"
+    />
+    <link href={% static 'vendor/fontawesome-free/css/all.css' %} rel="stylesheet" type="text/css" /> 
+    <link href={% static 'css/sb-admin-2.css' %} rel="stylesheet" type="text/css" />
+  </head>
+
+  <body id="page-top" class="sidebar-toggled">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <ul
+        class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
+        id="accordionSidebar"
+      >
+        <!-- Sidebar - Brand -->
+        <a
+          class="sidebar-brand d-flex align-items-center justify-content-center"
+          href="https://mobikode.com/"
+          target="_blank"
+        >
+          <div class="sidebar-brand-icon">
+            <img src="img/Mobikode-Logo.svg" />
+          </div>
+
+          {% comment %}
+          <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+          {% endcomment %}
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0" />
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+          <a class="nav-link" href="/">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Home</span></a
+          >
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0" />
+
+        <!-- Nav Item - Dashboard -->
+        {% comment %}
+        <li class="nav-item">
+          <a class="nav-link" href="/page1">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Sample Page</span></a
+          >
+        </li>
+        {% endcomment %}
+        <li class="nav-item" id="myTeamTab">
+          <a class="nav-link" href="/myTeam">
+            <i class="fas fa-users"></i>
+            <span>My Team</span></a
+          >
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider" />
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+          <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+      </ul>
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <nav
+            class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+          >
+            <!-- Sidebar Toggle (Topbar) -->
+            <button
+              id="sidebarToggleTop"
+              class="btn btn-link d-md-none rounded-circle mr-3"
+            >
+              <i class="fa fa-bars"></i>
+            </button>
+
+            <!-- Topbar Search -->
+            {% comment %} <form
+              class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+            >
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control bg-light border-0 small"
+                  placeholder="Search for..."
+                  aria-label="Search"
+                  aria-describedby="basic-addon2"
+                />
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                  </button>
+                </div>
+              </div>
+            </form> {% endcomment %}
+
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+              <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+              <li class="nav-item dropdown no-arrow d-sm-none">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="searchDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-search fa-fw"></i>
+                </a>
+                <!-- Dropdown - Messages -->
+                <div
+                  class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                  aria-labelledby="searchDropdown"
+                >
+                  <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control bg-light border-0 small"
+                        placeholder="Search for..."
+                        aria-label="Search"
+                        aria-describedby="basic-addon2"
+                      />
+                      <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                          <i class="fas fa-search fa-sm"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </li>
+
+              <!-- Nav Item - Alerts -->
+              {% comment %}
+              <li class="nav-item dropdown no-arrow mx-1">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="alertsDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-bell fa-fw"></i>
+                  <!-- Counter - Alerts -->
+                  <span class="badge badge-danger badge-counter">3+</span>
+                </a>
+                <!-- Dropdown - Alerts -->
+                <div
+                  class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                  aria-labelledby="alertsDropdown"
+                >
+                  <h6 class="dropdown-header">Alerts Center</h6>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                      <div class="icon-circle bg-primary">
+                        <i class="fas fa-file-alt text-white"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="small text-gray-500">December 12, 2019</div>
+                      <span class="font-weight-bold"
+                        >A new monthly report is ready to download!</span
+                      >
+                    </div>
+                  </a>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                      <div class="icon-circle bg-success">
+                        <i class="fas fa-donate text-white"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="small text-gray-500">December 7, 2019</div>
+                      $290.29 has been deposited into your account!
+                    </div>
+                  </a>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                      <div class="icon-circle bg-warning">
+                        <i class="fas fa-exclamation-triangle text-white"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="small text-gray-500">December 2, 2019</div>
+                      Spending Alert: We've noticed unusually high spending for
+                      your account.
+                    </div>
+                  </a>
+                  <a
+                    class="dropdown-item text-center small text-gray-500"
+                    href="#"
+                    >Show All Alerts</a
+                  >
+                </div>
+              </li>
+              {% endcomment %}
+
+              <!-- Nav Item - Messages -->
+              {% comment %}
+              <li class="nav-item dropdown no-arrow mx-1">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="messagesDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-envelope fa-fw"></i>
+                  <!-- Counter - Messages -->
+                  <span class="badge badge-danger badge-counter">7</span>
+                </a>
+                <!-- Dropdown - Messages -->
+                <div
+                  class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                  aria-labelledby="messagesDropdown"
+                >
+                  <h6 class="dropdown-header">Message Center</h6>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="dropdown-list-image mr-3">
+                      <img
+                        class="rounded-circle"
+                        src="img/undraw_profile_1.svg"
+                        alt="..."
+                      />
+                      <div class="status-indicator bg-success"></div>
+                    </div>
+                    <div class="font-weight-bold">
+                      <div class="text-truncate">
+                        Hi there! I am wondering if you can help me with a
+                        problem I've been having.
+                      </div>
+                      <div class="small text-gray-500">Emily Fowler · 58m</div>
+                    </div>
+                  </a>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="dropdown-list-image mr-3">
+                      <img
+                        class="rounded-circle"
+                        src="img/undraw_profile_2.svg"
+                        alt="..."
+                      />
+                      <div class="status-indicator"></div>
+                    </div>
+                    <div>
+                      <div class="text-truncate">
+                        I have the photos that you ordered last month, how would
+                        you like them sent to you?
+                      </div>
+                      <div class="small text-gray-500">Jae Chun · 1d</div>
+                    </div>
+                  </a>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="dropdown-list-image mr-3">
+                      <img
+                        class="rounded-circle"
+                        src="img/undraw_profile_3.svg"
+                        alt="..."
+                      />
+                      <div class="status-indicator bg-warning"></div>
+                    </div>
+                    <div>
+                      <div class="text-truncate">
+                        Last month's report looks great, I am very happy with
+                        the progress so far, keep up the good work!
+                      </div>
+                      <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                    </div>
+                  </a>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="dropdown-list-image mr-3">
+                      <img
+                        class="rounded-circle"
+                        src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
+                        alt="..."
+                      />
+                      <div class="status-indicator bg-success"></div>
+                    </div>
+                    <div>
+                      <div class="text-truncate">
+                        Am I a good boy? The reason I ask is because someone
+                        told me that people say this to all dogs, even if they
+                        aren't good...
+                      </div>
+                      <div class="small text-gray-500">
+                        Chicken the Dog · 2w
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    class="dropdown-item text-center small text-gray-500"
+                    href="#"
+                    >Read More Messages</a
+                  >
+                </div>
+              </li>
+              {% endcomment %}
+
+              <div class="topbar-divider d-none d-sm-block"></div>
+
+              <!-- Nav Item - User Information -->
+              <li class="nav-item dropdown no-arrow">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="userDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <span class="mr-2 d-none d-lg-inline text-primary font-weight-bold small">
+                    {{ request.user|stringformat:"s"| separate_pascal_case }}
+                  </span>
+
+                  <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                </a>
+                <!-- Dropdown - User Information -->
+                <div
+                  class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                  aria-labelledby="userDropdown"
+                >
+                  <a class="dropdown-item" href="/login/">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Profile
+                  </a>
+                  {% comment %}
+                  <a class="dropdown-item" href="#">
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Settings
+                  </a>
+                  {% endcomment %} {% comment %}
+                  <a class="dropdown-item" href="#">
+                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Activity Log
+                  </a>
+                  {% endcomment %}
+                  <div class="dropdown-divider"></div>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#logoutModal"
+                  >
+                    <i
+                      class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                    ></i>
+                    Logout
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </nav>
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Main data-->
+            <div class="row">{% block content %}{% endblock %}</div>
+          </div>
+          <!-- /.container-fluid -->
+
+          <!-- Footer -->
+          <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+              <div class="copyright text-center my-auto">
+                <span
+                  >Copyright &copy;
+                  <a href="https://mobikode.com/" target="_blank"
+                    >https://mobikode.com/</a
+                  >
+                </span>
+                <br />
+                <small
+                  >Empowering Global Brands with Transformational
+                  Expertise</small
+                >
+              </div>
+            </div>
+          </footer>
+          <!-- End of Footer -->
+        </div>
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div
+      class="modal fade"
+      id="logoutModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Select "Logout" below if you are ready to end your current session.
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <a class="btn btn-primary" href="/logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--image edit-->
+<!-- Logout Modal-->
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"
+    />
+    {% comment %} <link href={% static
+    'vendor/datatables/dataTables.bootstrap4.css' %} rel="stylesheet"
+    type="text/css" /> {% endcomment %}
+
+    <script src="{% static 'vendor/datatables/jquery.dataTables.js' %}"></script>
+
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+    <!-- Page level plugins -->
+    {% comment %} <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script> {% endcomment %}
+
+    <!-- Page level custom scripts -->
+    {% comment %} <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+    <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script> {% endcomment %}
+
+    <script type="text/javascript">
+      var flag = true;
+      var i = 0;
+
+      $(document).ready(function () {
+        var table = $("#bootstrapdatatable1").DataTable({
+          aLengthMenu: [
+            [3, 5, 10, 25, -1],
+            [3, 5, 10, 25, "All"],
+          ],
+          iDisplayLength: 5,
+          //dom: "Bfrtip",
+          buttons: ["copy", "excel", "pdf"],
+
+          responsive: true,
+          colReorder: true,
+          autoWidth: false,
+        });
+        var sRIndex = 0;
+        $("#bootstrapdatatable1 tfoot th").each(function () {
+          var title = $(this).text();
+          $(this).html(
+            '<input id="txtSearch' +
+              sRIndex +
+              '" type="text" class="form-control" placeholder="Search ' +
+              title +
+              '" />'
+          );
+          sRIndex++;
+        });
+
+        $("#bootstrapdatatable1 tfoot")
+          .find("input[id^='txtSearch0']")
+          .remove();
+        $("#bootstrapdatatable1 tfoot")
+          .find("input[id^='txtSearch14']")
+          .remove();
+        $("#bootstrapdatatable1 tfoot")
+          .find("input[id^='txtSearch15']")
+          .remove();
+
+        sRIndex = 0;
+        table.columns().every(function () {
+          var that = this;
+          var idSearch = "#txtSearch" + sRIndex;
+          $(idSearch).on("keyup change clear", function (ev) {
+            i = i + 1;
+            console.log("keypress", i);
+            if (that.search() !== this.value) {
+              that.search(this.value).draw();
+            }
+          });
+
+          sRIndex++;
+        });
+  
+        // Append icons to each row
+        table.on("draw", function () {
+          var rows = table.rows({ page: "current" }).nodes(); // Get the rows only for the current page
+         
+          $(rows).each(function ( rowIdx, tableLoop, rowLoop) {
+            var data = table.row(this).data();        
+            // Append icons based on data
+            if(data[16]== "Reject")
+              {
+                var spanElement= $('table tbody tr:eq(' + rowIdx + ')').find('td:eq(0)').find('div span');
+                spanElement.removeClass().addClass("text-secondary");
+                spanElement.find("i").removeClass().addClass("fas fa-thumbs-down");
+                
+              }
+              else if(data[16]== "Approved"){
+                var spanElement= $('table tbody tr:eq(' + rowIdx + ')').find('td:eq(0)').find('div span');
+                spanElement.removeClass().addClass("text-success");
+                spanElement.find("i").removeClass().addClass("fas fa-thumbs-up");
+               
+              }else if(data[16]== "Screen Reject"){
+                var spanElement= $('table tbody tr:eq(' + rowIdx + ')').find('td:eq(0)').find('div span');
+                spanElement.removeClass().addClass("text-danger");
+                spanElement.find("i").removeClass().addClass("fas fa-user-times");
+                
+              }else if(data[16]== "Shortlisted"){
+                var spanElement= $('table tbody tr:eq(' + rowIdx + ')').find('td:eq(0)').find('div span');
+                spanElement.removeClass().addClass("text-info");
+                spanElement.find("i").removeClass().addClass("fas fa-user-check");
+               
+              }else if(data[16]== "Hold"){
+                var spanElement= $('table tbody tr:eq(' + rowIdx + ')').find('td:eq(0)').find('div span');
+                spanElement.removeClass().addClass("text-info");
+                spanElement.find("i").removeClass().addClass("fas fa-user-clock");
+              }else{
+                var spanElement= $('table tbody tr:eq(' + rowIdx + ')').find('td:eq(0)').find('div span');
+                spanElement.removeClass().addClass("text-warning");
+                spanElement.find("i").removeClass().addClass("fas fa-exclamation-triangle");
+               
+              }
+          });
+        });
+        
+        // Initial execution of applying icons to the table
+        table.draw();
+      });
+    </script>
+
+    <!--For super User data table below jquery -->
+    <script type="text/javascript">
+      var flag = true;
+      var i = 0;
+    
+      $(document).ready(function () {
+        var table1 = $('#superuserdatatable').DataTable({
+          aLengthMenu: [
+            [3, 5, 10, 25, -1],
+            [3, 5, 10, 25, "All"],
+          ],
+          iDisplayLength: 10,
+          //dom: "Bfrtip",
+          buttons: ["copy", "excel", "pdf"],
+    
+          responsive: true,
+          colReorder: true,
+          autoWidth: false,
+        });
+        var sRIndex = 0;
+        $('#superuserdatatable tfoot th').each(function () {
+          var title = $(this).text();
+          $(this).html(
+            '<input id="txtSearch' +
+              sRIndex +
+              '" type="text" class="form-control" placeholder="Search ' +
+              title +
+              '" />'
+          );
+          sRIndex++;
+        });
+    
+        $("#superuserdatatable tfoot")
+          .find("input[id^='txtSearch0']")
+          .remove();
+        $("#superuserdatatable tfoot")
+          .find("input[id^='txtSearch14']")
+          .remove();
+        $("#superuserdatatable tfoot")
+          .find("input[id^='txtSearch15']")
+          .remove();
+    
+        sRIndex = 0;
+        table1.columns().every(function () {
+          var that = this;
+          var idSearch = "#txtSearch" + sRIndex;
+          $(idSearch).on("keyup change clear", function (ev) {
+            i = i + 1;
+            console.log("keypress", i);
+            if (that.search() !== this.value) {
+              that.search(this.value).draw();
+            }
+          });
+    
+          sRIndex++;
+        });
+  
+        // Append icons to each row
+         table1.on("draw", function () {
+            var rows1 = table1.rows({ page: "current" }).nodes(); // Get the rows only for the current page
+          
+            $(rows1).each(function ( rowIdx, tableLoop, rowLoop) {
+              var data = table1.row(this).data();   
+              
+              // Append icons based on data
+                if(data[16]== "Reject")
+                {
+                  var spanElement= $('#superuserdatatable tbody tr:eq(' + rowIdx + ')').find('td:eq(0)').find('div span');
+                  spanElement.removeClass().addClass("text-secondary");
+                  spanElement.find("i").removeClass().addClass("fas fa-thumbs-down");
+                  
+                }
+                else if(data[16]== "Approved"){
+                  var spanElement= $('#superuserdatatable tbody tr:eq(' + rowIdx + ')').find('td:eq(0)').find('div span'); 
+                  spanElement.removeClass().addClass("text-success");     
+                  spanElement.find("i").removeClass().addClass("fas fa-thumbs-up");
+                
+                }else if(data[16]== "Screen Reject"){
+                  var spanElement= $('#superuserdatatable tbody tr:eq(' + rowIdx + ')').find('td:eq(0)').find('div span');
+                  spanElement.removeClass().addClass("text-danger");
+                  spanElement.find("i").removeClass().addClass("fas fa-user-times");
+                  
+                }else if(data[16]== "Shortlisted"){
+                  var spanElement= $('#superuserdatatable tbody tr:eq(' + rowIdx + ')').find('td:eq(0)').find('div span');
+                  spanElement.removeClass().addClass("text-info");
+                  spanElement.find("i").removeClass().addClass("fas fa-user-check");
+                
+                }else if(data[16]== "Hold"){
+                  var spanElement= $('#superuserdatatable tbody tr:eq(' + rowIdx + ')').find('td:eq(0)').find('div span');
+                  spanElement.removeClass().addClass("text-info");
+                  spanElement.find("i").removeClass().addClass("fas fa-user-clock");
+                
+                }else{
+                  var spanElement= $('#superuserdatatable tbody tr:eq(' + rowIdx + ')').find('td:eq(0)').find('div span');
+                  spanElement.removeClass().addClass("text-warning");
+                  spanElement.find("i").removeClass().addClass("fas fa-exclamation-triangle");
+                }
+            });
+        });
+        
+        // Initial execution of applying icons to the table
+        table1.draw();
+      });
+    </script>
+
+    <!-- To show/hide myteam tab below code-->
+    <script>
+      $(document).ready(function () {
+        var elementId = document.getElementById("myTeamTab").id;
+        let csrftoken = "{{ csrf_token }}";
+        var username = "{{ request.user }}";
+        if (
+          username == "AnkitaAdhau" ||
+          username == "PoojaBerde" ||
+          username == "AtharvaPasalkar"
+        ) {
+          // alert("superuser");
+          $("#myTeamTab").addClass("showTab");
+          $("#myTeamTab").removeClass("hideTab");
+        } else {
+          // alert("normal user");
+          $("#myTeamTab").removeClass("showTab");
+          $("#myTeamTab").addClass("hideTab");
+        }
+      });     
+    </script>
+
+
+  </body>
+</html>

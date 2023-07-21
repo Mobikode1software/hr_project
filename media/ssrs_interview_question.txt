@@ -1,0 +1,502 @@
+SSRS
+Differentiate between tablix and matrix.
+Subreport, linked report, mapping report, paging Report 
+how many types of charts and graphs.
+How many types of data regions
+Different Stages of Report Processing
+Parameterized report
+Cascading parameter
+Architecture components of SSRS
+What is Placeholder
+Alternate row coloring 
+Report Subscription
+
+---------------------------
+
+SSRS:
+SQL Server Reporting Services or SSRS is a server-based reporting platform that provides detailed 
+reporting functionality for various data sources.
+
+What are the essential architecture components of SSRS?
+Following are the important architecture components of SSRS:
+
+Report Designer
+Report Manager
+Report Server
+Report Server Database
+Browser types supported by reporting services
+Report Server and Command line utilities
+Data Sources
+
+
+1. Explain what SSRS is.
+SQL Server Reporting Services or SSRS is a server-based reporting platform that provides detailed reporting 
+functionality for various data sources. Reporting services comprise an entire set of tools to manage, generate and deliver reports and APIs that enables developers to coordinate data and report processes in a custom application.
+
+2. What are the essential architecture components of SSRS?
+Following are the important architecture components of SSRS:
+
+Report Designer
+Report Manager
+Report Server
+Report Server Database
+Browser types supported by reporting services
+Report Server and Command line utilities
+Data Sources
+
+
+3. Explain the term data regions and mention the different data regions.
+Data regions are  report items that display information from datasets. Different data regions include:
+Matrix
+Gauge
+Chart
+List
+Table
+
+
+Differentiate between tablix and matrix.
+The key difference between tables and matrices is that tables can include only row groups, 
+whereas matrices have row groups and column groups
+
+In SSRS RDL standard, “tablix” is a generalized term that means the combination of table, matrix (cross-table or pivot table),
+ and list report items (table+list+matrix=tablix). It displays report data from a data set in cells that are organized into rows and columns.
+ 
+ 
+ 
+ how many types of charts and graphs.
+ five primary chart forms: pie charts, bar charts, column charts, line charts, and dot charts [9].
+ Column Chart
+Bar Chart
+Line Chart
+Area Chart
+Pie Chart
+Doughnut Chart
+Scatter Chart
+Bubble Chart
+Stacked Column Chart
+Stacked Bar Chart
+Stacked Area Chart
+Radar Chart
+Gauge Chart
+Funnel Chart
+Tree Map
+Sunburst Chart
+Heat Map
+Gantt chart
+
+
+Different Stages of Report Processing
+Report Definition: The report definition is the XML file that contains the report layout and design. 
+SSRS retrieves the report definition from the report server or file system.
+
+Data Retrieval: SSRS retrieves data from the data source specified in the report definition.
+ The data retrieval process can include SQL queries, stored procedures, or other data access methods.
+
+Report Layout: SSRS processes the report layout and design, including grouping, sorting, and filtering the data as specified in the report definition.
+
+Report Rendering: SSRS renders the report output in the requested format, such as PDF, Excel, or HTML. This stage can involve additional processing, such as pagination or rendering charts and graphs.
+
+Report Delivery: The final report is delivered to the user, either by displaying it in a web browser or saving it to a file or other destination.
+
+
+what is Parameterized report in ssrs?
+a parameterized report is a report that allows users to input parameters or values when running the report, which affects the report data and output.
+or example, a parameterized report might allow users to filter the report data based on date ranges, specific categories, or other criteria.
+
+usage: to filer data based on certain criteria
+
+
+what is Cascading parameter in SSRS?
+In SSRS (SQL Server Reporting Services), a cascading parameter is a report parameter that is dependent on the value of another parameter.
+ In other words, the available values of the cascading parameter are determined by the value selected for the first parameter.
+
+For example, consider a report that displays sales data for different regions and cities.
+ The report might have two parameters: one for selecting the region, and one for selecting the city within that region. 
+ When the user selects a region from the first parameter, the available values for the second parameter are dynamically updated 
+ to show only the cities within that region.
+ 
+ for EX: selcting city based on different states  regions
+ 
+ 
+What is Placeholder in ssrs?
+In SSRS (SQL Server Reporting Services), a placeholder is a container for report items, such as text boxes, labels, images, or other data. 
+Placeholders are used to organize and format report content, and can be customized with various properties to control their appearance and behavior.
+
+
+
+Report Subscription in ssrs?  --> automatic delevery of reports to one or more recipients
+
+Report Subscription is a feature in SSRS (SQL Server Reporting Services) that allows users to schedule and automate the delivery 
+of reports to one or more recipients. 
+This feature enables users to receive the latest version of a report automatically, without having to log in to the report server 
+or run the report manually.
+
+
+alternate row coloring
+=IIF(ROWNUMBER(NOTHING) MOD 2, "oddrowcolor", "evenrowcolor") add this expression in row backgroundcolor
+
+
+Name the various types of reports that can be created while using the features of SSRS?
+Following are the different types of the report such as;
+
+Snapshot reports
+Parameterized reports
+Click through reports
+Drill through reports
+Drill down reports
+Ad-hoc reports
+Cached reports
+Subreports
+Linked reports
+
+
+nth highest salary in SQL
+select * from(
+select ename, sal, dense_rank() 
+over(order by sal desc)r from Employee) 
+where r=&n;
+
+
+having clause-> use with group by
+where clause: -> use when having not used to specify condition applicable to check on each row
+
+subset in sql:
+DDL
+DML
+DCL
+TCL
+
+In what  sequence sql stsmat executed
+1. select
+2. from
+3. where clause 
+4. group by
+5. having cluse
+6. order by
+
+
+can we add identity column to decimal datatype?
+Only columns of type SMALLINT, INTEGER, BIGINT, DECIMAL, or NUMERIC can be created as identity columns
+
+How to delete duplicate copy of records
+
+Delete from employee where
+empid NOT IN
+(select 
+    min(empid)
+FROM
+    employee
+GROUP BY empsalary
+);
+---------------------------------------------
+what is join and explain types of joins
+constarints and types
+differcnec in wheere and having
+--------------------------
+find even and odd rows in sql
+
+odd rows:
+
+	SELECT *
+FROM employee 
+where empid % 2  <> 0;
+
+	SELECT *
+FROM employee 
+where empid % 2  = 1;
+
+even rows
+
+	SELECT *
+FROM employee 
+where empid % 2  = 0;
+
+---------------------------------------------------------------------------------------------
+
+2. select product key, englishcat name , color and sort  EnglishProductNamein ASC
+select [ProductKey],[EnglishProductName],
+[Color]
+from  DimProduct
+order by [EnglishProductName] ASC
+
+
+3.to select 3rd highest salary of emp wose salary between 5000 and 10000
+select top 1 empsalary
+from
+(
+select distinct top 3 empsalary 
+from dbo.employee 
+where empsalary BETWEEN 5000 AND 10000
+order by  empsalary DESC
+) as THIRDHIGHSALARY
+order by  empsalary ASC;
+
+4.wrte name of emploee whose salary do not >=10000
+select  empname from employee where empsalary <= 10000
+
+
+5. how many employee belong to depatment production
+select count(FirstName) as NoOfEMP from  DimEmployee where DepartmentName='Production'
+
+
+1.select month wise sale data and sale values order in DESC
+SELECT
+    year(Date) AS SaleOfYear,
+    month(Date) AS SalesOfMonth,
+    sum(SalesAmountQuota) AS TotalNoSales
+FROM
+    FactSalesQuota
+GROUP BY
+    year(Date),
+    month(Date)
+ORDER BY
+    TotalNoSales DESC;
+	
+-----------------------------------------------------------
+	
+	6. to find nth highest salary(for EX 3rd highest salary-> then n=3)
+	
+	select top 1 empsalary
+	from
+	(select top n empsalary
+	from employee
+	order by empsalary DESC)
+	as T
+	order by empsalary ASC
+	
+	using cte:
+	with RESULT AS
+	(
+		SELECT SALARY, DENKRANK() OVER ( ORDER BY SALARY desc) AS DENSKRAKno
+		FROM EMPLOYYEE
+		)
+		SELECT TOP 1 SALARY 
+		FROM  RESULT 
+		WHERE  RESULT.DENSKRAKno=N;
+	
+	
+	--------------------------------------------------------------
+	7.  find duplicate  duplicate records
+	
+	select 
+   min(empid), empname, empsalary 
+FROM
+    employee
+GROUP BY empname,empsalary
+having count(empsalary)> 1
+
+select min(empid) as empids, empname, empsalary from employee 
+	group by empname, empsalary 
+	having count(empsalary)>1
+
+
+----------------------------------
+
+
+
+How to delete duplicate copy of records
+
+Delete from employee where
+empid NOT IN
+(select 
+    min(empid)
+FROM
+    employee
+GROUP BY empsalary
+);
+
+
+delete from employee where empid NOT IN
+	(
+		select min(empid) 
+		from employee
+		group by empsalary
+	)
+---------------------------------------
+
+subreport: if we r calling one report into other report then it is called as subreport
+Linked report: It is derived report from other report
+
+Datasource: It is folder where data resides which representa actual data, like sql server, oracle server, xml file or any other database
+
+Dataset: It is query logic to retrieve data  from database/ datasorce
+
+ISNULL: We use the ISNULL function when we have a need to replace the NULL values with a specified value.
+IS NULL: use the IS NULL function when we want to identify NULL values in a table.
+
+--------------------------
+Indexes: 
+Indexes are used to retrieve data from the database more quickly than otherwise. 
+The users cannot see the indexes, they are just used to speed up searches/queries.
+
+CREATE INDEX index_name
+ON table_name (column1, column2, ...);
+
+
+Clustererd index:                                     
+used for easy retrieveal of data from DB and is faster.
+one table can have only 1  CI
+alters way records are stored in database as it sort out rows by cols which is set to be CI
+
+
+Non-clustered INDEX
+used for easy retrieveal of data from DB and is faster.
+one table can have many   non CI
+does not alters way records are stored in database. but it creates separte object within table which points back original table rows after searching
+
+
+
+
+
+-----------------------------------------------------
+
+View: a view is a virtual table based on the result-set of an SQL statement.
+
+CREATE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+
+-------------------------------------------------------------------------
+
+triigers:
+
+A trigger is a set of SQL statements that that automatically runs when an event occurs in the database server.
+DML triggers run when a user tries to modify data through a data manipulation language (DML) event. 
+DML events are INSERT, UPDATE, or DELETE statements on a table or view.
+
+CREATE TRIGGER schema.trigger_name  
+ON table_name  
+AFTER  {INSERT, UPDATE, DELETE}  
+[NOT FOR REPLICATION]  
+AS  
+{SQL_Statements}  
+
+Types of SQL Server Triggers
+Data Definition Language (DDL) Triggers.
+Data Manipulation Language (DML) Triggers.
+Logon Triggers.
+
+there are two tables :
+inserted table and deleted table inbuilt:
+The inserted table keeps the copy of the row when you insert a new row into the actual table. 
+ deleted table keeps the copy of the row you have just deleted from the actual table.
+
+
+
+----------------------------------------------------
+
+cursor:
+A cursor in SQL Server is a like pointer that allows us to retrieve each row at a time and manipulate its data. 
+
+The SQL Server cursor's purpose is to update the data row by row, change it, 
+or perform calculations that are not possible when we retrieve all records at once.
+
+1) PL/SQL Implicit Cursors:
+The implicit cursors are automatically generated by Oracle while an SQL statement is executed, if you don't use an explicit cursor for the statement.
+
+These are created by default to process the statements when DML statements like INSERT, UPDATE, DELETE etc. are executed.
+
+
+2.) PL/SQL Explicit Cursors
+The Explicit cursors are defined by the programmers to gain more control over the context area.
+ is created on a SELECT statement which returns more than one row.
+ Following is the syntax to create an explicit cursor:
+
+CURSOR cursor_name IS select_statement;;  
+
+
+-------------------------------------------
+
+Normalization: process of organizing data into DB  to avaoid duplication and redundant data
+1nf: each tale cell should have atomic single value
+2nf: table should be in 1nf and table should have single column primary key
+3nf: table shud be in 2nf and table shud not have any transitive functional dependency
+bcnf: table shud be 3nf and if more than 1 candidate key present in table, then only 1 candidate key shud be present in table
+
+
+subquery
+
+1. scalar subquery: It returns  single row and  single column.. EX: when we use aggregadate funct
+2. multiple row subquery:  It returns multiple row and multiple cols OR It can also returns multple rows and single columns
+3. corrlated subquery:  subquery which is related or dependent on values from outer query
+
+
+Types of Views
+Besides the standard role of basic user-defined views, SQL Server provides the following types of views that serve special purposes in a database.
+
+Indexed Views
+An indexed view is a view that has been materialized. 
+This means the view definition has been computed and the resulting data stored just like a table. 
+You index a view by creating a unique clustered index on it. Indexed views can dramatically improve the performance of some types of queries. 
+Indexed views work best for queries that aggregate many rows. They are not well-suited for underlying data sets that are frequently updated.
+
+Partitioned Views
+A partitioned view joins horizontally partitioned data from a set of member tables across one or more servers. 
+This makes the data appear as if from one table. A view that joins member tables on the same instance of SQL Server is a local partitioned view.
+
+System Views
+System views expose catalog metadata.
+ You can use system views to return information about the instance of SQL Server or the objects defined in the instance.
+ For example, you can query the sys.databases catalog view to return information about the user-defined databases available in the instance. For more information, see System Views (Transact-SQL)
+ ---------------------------------------------------------------------
+ chart types:
+ pie charts, bar charts, column charts, line charts, and dot charts
+ 
+ 
+ SSRS archotecture:
+ 1. Report designer:  Used  to develop all types of reports
+ 
+ 2.Report Builder: It is an  report publishing tool that is executed on a client’s computer. It has a drag and drop interface that is easy to use.
+ 
+ 3.Report Manager: The report managers check the report, matching it with the given requirements. They make decisions based on those reports.
+
+ 4. Report Server: It is a server which uses the SQL Server database engine to store metadata information
+
+5. Report server database: It stores metadata, report definitions, resources, security settings, delivery data, etc.
+
+6. Data sources: Reporting services retrieve data from data sources like relational and multidimensional data sources.
+-------------------------------------------------
+Report Type:
+
+Parameterized reports	
+This type of report uses input values to complete report or data processing.
+
+Linked Reports: A linked report offers a point to an existing report.
+This type of report is derived from an existing report and retains the original’s report definition.
+	
+Snapshot reports:
+A snapshot report contains layout information and query results which can be retrieved at a specific point in time.
+
+Cached Reports:
+The cached report allows you to create a copy of the processed reports. 
+They are used to enhance the performance by reducing the number of processing requests and time to retrieve large reports.
+
+Drill down Reports:
+Drill down reports helps you to hide complexity. It allows users toggle between hidden reports items to control how much detail data you want to see.
+ It must retrieve all possible information that can be shown in the report.
+
+Drillthrough Reports:
+	Drillthrough reports are standard reports which can be accessed through a hyperlink on a text box in the original report. 
+	It works with the main report and is the target of a drill through an action for a report item like a placeholder text or a chart.
+
+Subreports:
+As the name suggests, sub-reports is a report which displays another report inside the body of the main report.
+
+
+----------------------------------------------------------------
+
+Image Properties:
+1. Genaral: Name, tooltip, image MIME type- jpeg, png
+2. size: fit to size, other option, paddings options
+3. visibility: to change display option wheather
+4. action: to change action options.- like Go to report, go to Bookmark, Go to URL
+5. border: Add border to image
+
+------------------------------------------------------------------
+
+tablix properties:
+
+
+
+
